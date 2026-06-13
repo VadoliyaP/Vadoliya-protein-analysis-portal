@@ -1,0 +1,19 @@
+name: Sync to Hugging Face Spaces
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Push to HF
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: git push --force https://:$HF_TOKEN@huggingface.co/spaces/Vadoliya/protein-analysis-portal main
